@@ -37,7 +37,10 @@ app.get('/home', (_, res) => {
 })
 
 app.get('/available', (_, res) => {
-  BooksStatus.show_all_books_status(res);
+  //BooksStatus.show_all_books_status(res);
+  Books.find({status: 'Available'},'title status')
+    .then((books) => res.json(books))
+    .catch((_) => res.status(500).send("Error fetching books: " + err))
 })
 
 app.get('/books', (_, res) => {
@@ -47,7 +50,10 @@ app.get('/books', (_, res) => {
 })
 
 app.get('/authors', (_, res) => {
-  Authors.show_all_authors(res);
+  //Authors.show_all_authors(res);
+  Authors.find({}, 'name lifespan')
+    .then((authors) => res.json(authors))
+    .catch((_) => res.status(500).send("Error fetching authors: " + err))
 })
 
 app.get('/book_dtls', (req, res) => {
